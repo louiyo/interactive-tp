@@ -3,6 +3,10 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
+
+# Install build tools needed for native addons (better-sqlite3)
+RUN apk add --no-cache python3 make g++
+
 RUN npm ci
 
 COPY . .
