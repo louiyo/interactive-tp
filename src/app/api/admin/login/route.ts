@@ -3,7 +3,7 @@ import { getState } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   const { password } = await req.json();
-  const stored = getState("admin_password");
+  const stored = process.env.ADMIN_PASSWORD ?? getState("admin_password");
   if (password !== stored) {
     return NextResponse.json({ error: "Mot de passe incorrect." }, { status: 401 });
   }
